@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Number Guessing Game</title>
+	</head>
+	<body>
+		<h1>113306059_Lab3_Number Guessing Game</h1>
+		<div id="gameContainer"></div>
+		<script>
+			var chance = 7, max = 100, min = 1, ans, a;
+			ans = Math.floor(Math.random() * 100) + 1;
+			window.onload = function() {
+				startGame();
+			};
+			function startGame() {
+				const gameContainer = document.getElementById('gameContainer');
+				gameContainer.innerHTML = '';
+				while(chance > 0) {
+					a = window.prompt("Enter Number Between " + min + "~" + max + "\n" + chance + " chances left");
+					a = Math.round(a);
+					if (a > min && a < max && !isNaN(a)) {
+						if(a > ans) {
+							max = a;
+						}
+						else if (a < ans) {
+							min = a;
+						}
+						else {
+							alert("Correct!");
+							const img = document.createElement('img');
+							img.src = "correct.jpg";
+							img.alt = "Correct!";
+							gameContainer.appendChild(img);
+							break;
+						}
+						chance--;
+					} else {
+						alert("Please enter a valid number between " + min + " and " + max);
+					}
+					if (chance == 0) {
+						const img = document.createElement('img');
+						img.src = "wrong.jpg";
+						img.alt = "Wrong!";
+						gameContainer.appendChild(img);
+						gameContainer.innerHTML += "<p>The correct answer was " + ans + "</p>";
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
